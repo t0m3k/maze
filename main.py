@@ -1,12 +1,11 @@
-from lib.graphics import Window, Point, Line
+from lib.graphics import Window, Point, Cell
 
 
 def main():
     win = Window(800, 600)
     point1 = Point(10, 10)
-    point2 = Point(50, 50)
-    line = Line(point1, point2)
-    win.draw_line(line, "red")
+    cell = Cell(point1, win)
+    cell.draw()
     win.wait_for_close()
 
 
