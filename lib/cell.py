@@ -15,18 +15,27 @@ class Cell:
     def draw(self) -> None:
         if self.__win is None:
             return None
-        if self.has_top_wall:
-            line = Line(self.position, self.get_top_right())
-            self.__win.draw_line(line, "red")
-        if self.has_left_wall:
-            line = Line(self.position, self.get_bottom_left())
-            self.__win.draw_line(line, "red")
-        if self.has_bottom_wall:
-            line = Line(self.get_bottom_right(), self.get_bottom_left())
-            self.__win.draw_line(line, "red")
-        if self.has_right_wall:
-            line = Line(self.get_top_right(), self.get_bottom_right())
-            self.__win.draw_line(line, "red")
+
+        color = self.__line_colour(self.has_top_wall)
+        line = Line(self.position, self.get_top_right())
+        self.__win.draw_line(line, color)
+
+        color = self.__line_colour(self.has_left_wall)
+        line = Line(self.position, self.get_bottom_left())
+        self.__win.draw_line(line, color)
+
+        color = self.__line_colour(self.has_bottom_wall)
+        line = Line(self.get_bottom_right(), self.get_bottom_left())
+        self.__win.draw_line(line, color)
+
+        color = self.__line_colour(self.has_right_wall)
+        line = Line(self.get_top_right(), self.get_bottom_right())
+        self.__win.draw_line(line, color)
+
+    def __line_colour(self, draw: bool) -> str:
+        main = "red"
+        bg = "#ECECEC"
+        return main if draw else bg
 
     def draw_move(self, to_cell: "Cell", undo=False) -> None:
         line = Line(self.__center(), to_cell.__center())

@@ -15,10 +15,11 @@ class Maze:
         self.__position = point
         self.rows = num_rows
         self.cols = num_cols
-        self.cell_size = cell_size
+        Cell.size = cell_size
         self.__win = win
         self._cells: list[Cell] = []
         self._create_cells()
+        self._break_entrance_and_exit()
 
     def _create_cells(self):
         pos = self.__position
@@ -34,8 +35,16 @@ class Maze:
             else:
                 pos = cell.get_top_right()
 
+    def _break_entrance_and_exit(self):
+        self._cells[0].has_top_wall = False
+        self._animate()
+        self._cells[0].draw()
+        self._cells[-1].has_bottom_wall = False
+        self._cells[-1].draw()
+        self._animate()
+
     def _animate(self):
         if self.__win is None:
             return
         self.__win.redraw()
-        sleep(0.25)
+        sleep(0.05)
