@@ -56,16 +56,16 @@ class Cell:
 
     def draw(self) -> None:
         if self.has_top_wall:
-            line = Line(self.position, self.__tr())
+            line = Line(self.position, self.get_top_right())
             self.__win.draw_line(line, "red")
         if self.has_left_wall:
-            line = Line(self.position, self.__bl())
+            line = Line(self.position, self.get_bottom_left())
             self.__win.draw_line(line, "red")
         if self.has_bottom_wall:
-            line = Line(self.__br(), self.__bl())
+            line = Line(self.get_bottom_right(), self.get_bottom_left())
             self.__win.draw_line(line, "red")
-        if self.has_left_wall:
-            line = Line(self.__tr(), self.__br())
+        if self.has_right_wall:
+            line = Line(self.get_top_right(), self.get_bottom_right())
             self.__win.draw_line(line, "red")
 
     def draw_move(self, to_cell: "Cell", undo=False) -> None:
@@ -79,8 +79,8 @@ class Cell:
     def get_top_right(self) -> Point:
         return Point(self.position.x + self.size, self.position.y)
 
-    def __br(self) -> Point:
+    def get_bottom_right(self) -> Point:
         return Point(self.position.x + self.size, self.position.y + self.size)
 
-    def __bl(self) -> Point:
+    def get_bottom_left(self) -> Point:
         return Point(self.position.x, self.position.y + self.size)
