@@ -11,6 +11,7 @@ class Cell:
         self.has_bottom_wall = True
         self.position = position
         self.__win = win
+        self.visited = False
 
     def draw(self) -> None:
         if self.__win is None:
