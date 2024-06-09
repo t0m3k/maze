@@ -68,7 +68,15 @@ class Cell:
             line = Line(self.__tr(), self.__br())
             self.__win.draw_line(line, "red")
 
-    def __tr(self) -> Point:
+    def draw_move(self, to_cell: "Cell", undo=False) -> None:
+        line = Line(self.__center(), to_cell.__center())
+        colour = "gray" if undo else "red"
+        self.__win.draw_line(line, colour)
+
+    def __center(self) -> Point:
+        return Point(self.position.x + self.size / 2, self.position.y + self.size / 2)
+
+    def get_top_right(self) -> Point:
         return Point(self.position.x + self.size, self.position.y)
 
     def __br(self) -> Point:
