@@ -95,6 +95,10 @@ class Maze:
         self.remove_common_wall(cell, n2)
         self.break_walls_r(n2)
 
+    def __clear_visited(self):
+        for cell in self._cells:
+            cell.visited = False
+
     def __visited_ratio(self):
         if not self._cells:
             return 1
@@ -135,3 +139,22 @@ class Maze:
         self._cells[n1].draw()
         self._cells[n2].draw()
         self._animate()
+
+    def solve(self):
+        self.__clear_visited()
+        return self.__solve_r(0)
+
+    def __solve_r(self, i):
+        self._animate()
+        if i == len(self._cells) - 1:
+            return True
+        c_cell = self._cells[i]
+        c_cell.visited = True
+        nbrs = self.get_neighbours(i, False)
+        for nbr in nbrs:
+            n_cell = self._cells[nbr]
+            if not n_cell.visited:
+                c_cell.draw_move(n_cell)
+                if self.__solve_r(nbr):
+                    return True
+                c_cell.draw_move(n_cell, True)

@@ -34,7 +34,7 @@ class Cell:
         self.__win.draw_line(line, color)
 
     def __line_colour(self, draw: bool) -> str:
-        main = "red"
+        main = "blue"
         bg = "#ECECEC"
         return main if draw else bg
 
