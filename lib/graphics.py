@@ -21,8 +21,12 @@ class Line:
 class Window:
     def __init__(self, w, h) -> None:
         self.__root = Tk()
-        self.__root.title = "Tomasz test"
-        self.__canvas = Canvas(self.__root, width=w, height=h)
+        self.__root.title("Maze")
+        self.__canvas = Canvas(
+            self.__root,
+            width=w,
+            height=h,
+        )
         self.__canvas.pack(fill=BOTH, expand=True)
         self.running = False
         self.__root.protocol("WM_DELETE_WINDOW", self.close)

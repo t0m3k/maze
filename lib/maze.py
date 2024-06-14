@@ -51,7 +51,7 @@ class Maze:
         self.__win.redraw()
         sleep(0.01)
 
-    def get_neighbours(self, i: int, all=True) -> list[int]:
+    def get_neighbors(self, i: int, all=True) -> list[int]:
         nbrs: list[int] = []
         if i + 1 > self.cols and (all or not self._cells[i].has_top_wall):
             nbr = i - self.cols
@@ -85,7 +85,7 @@ class Maze:
                 return
         self._cells[cell].visited = True
         nbrs = list(
-            filter(lambda i: not self._cells[i].visited, self.get_neighbours(cell))
+            filter(lambda i: not self._cells[i].visited, self.get_neighbors(cell))
         )
         if not nbrs:
             if self._cells[-1].visited and self.__visited_ratio() > 0.99:
@@ -112,7 +112,7 @@ class Maze:
         nv: list[Cell] = []
         for i in range(len(self._cells)):
             if not self._cells[i].visited:
-                nbrs = self.get_neighbours(i)
+                nbrs = self.get_neighbors(i)
                 nbrs = list(filter(lambda n: self._cells[n].visited, nbrs))
                 nv += nbrs
         if not nv:
@@ -150,7 +150,7 @@ class Maze:
             return True
         c_cell = self._cells[i]
         c_cell.visited = True
-        nbrs = self.get_neighbours(i, False)
+        nbrs = self.get_neighbors(i, False)
         for nbr in nbrs:
             n_cell = self._cells[nbr]
             if not n_cell.visited:
